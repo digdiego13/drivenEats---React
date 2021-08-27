@@ -91,9 +91,9 @@ export default function Conteudo () {
     return (
         <div className="conteudo">
 				
-				<Menus tipo={pratos} etapa="Escolha o pratinho"/>
-				<Menus tipo={bebidas} etapa="Escolha a bebidinha"/>
-				<Menus tipo={sobremesas} etapa="Lanca a Sobremesa"/>
+				<Menus categoria={categorias[0]} tipo={pratos} etapa="Escolha o pratinho"/>
+				<Menus categoria={categorias[1]} tipo={bebidas} etapa="Escolha a bebidinha"/>
+				<Menus categoria={categorias[2]} tipo={sobremesas} etapa="Lanca a Sobremesa"/>
 		</div>
     )
 }

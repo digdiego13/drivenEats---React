@@ -1,12 +1,18 @@
+
+
 export default function Opcao (props) {
 
+    
+
     return (
-        <div onclick="comidaPedida(this)" className="prato">
-                <img className="imagem-cardapio" src={props.imagem} />
-                <p className="titulo-prato">{props.titulo}</p>
-                <p className="descricao"> {props.descricao}</p>
-                <p className="preco-prato">R$ <span>{props.preco}</span></p>
+       <div className="card">
+            <img className="imagem-cardapio" src={props.imagem} />
+            <p className="titulo-card">{props.titulo}</p>
+            <p className="descricao"> {props.descricao}</p>
+            <div className="card-bottom">
+                <p className="preco-card">R$ <span>{props.preco}</span></p>
                 <ion-icon name="checkmark-circle" className="simbolo-check"></ion-icon>
+            </div>
         </div>
     )
 }
