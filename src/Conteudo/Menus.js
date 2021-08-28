@@ -8,23 +8,84 @@ export default function Menus (props) {
     
     const [pratosSelecionados, setPratosSelecionados] = React.useState([])
 
+    const [bebidasSelecionadas, setBebidasSelecionadas] = React.useState([])
+
+    const [sobremesasSelecionadas, setSobremesasSelecionadas] = React.useState([])
+
+
     function pedidoSelecionado (categoria, titulo, preco) {
 
         if(categoria === "pratos") {
-
             let novoPrato = {
                 titulo,
-                preco
+                preco,
+                quantidade: 1
             }
-            const pratosAtt = [...pratosSelecionados, novoPrato];
-            setPratosSelecionados(() => pratosAtt);
+            
+            setPratosSelecionados(() => ([...pratosSelecionados, novoPrato]));
             console.log(pratosSelecionados)
+
         }
         if(categoria === "bebidas") {
+            let novaBebida = {
+                titulo,
+                preco,
+                quantidade: 1
+            }
+            
+            setBebidasSelecionadas(() => ([...bebidasSelecionadas, novaBebida]));
+            console.log(bebidasSelecionadas)
+
             
         }
         if(categoria === "sobremesas") {
+            let novaSobremesa = {
+                titulo,
+                preco,
+                quantidade: 1
+            }
             
+            setSobremesasSelecionadas(() => ([...sobremesasSelecionadas, novaSobremesa]));
+            console.log(sobremesasSelecionadas)
+
+        }
+
+    }
+
+    function aumentarQuantidade (categoria, titulo) {
+
+        if(categoria === "pratos") {
+            pratosSelecionados.forEach(element => {
+                if(element.titulo === titulo) {
+                    element.quantidade++
+                }
+
+        })
+        setPratosSelecionados(() => [...pratosSelecionados])
+        console.log(pratosSelecionados)
+        }
+
+        if(categoria === "bebidas") {
+            bebidasSelecionadas.forEach(element => {
+                if(element.titulo === titulo) {
+                    element.quantidade++
+                }
+
+        })
+        setBebidasSelecionadas(() => ([...bebidasSelecionadas]));
+        console.log(bebidasSelecionadas)
+        }
+
+        if(categoria === "sobremesas") {
+            sobremesasSelecionadas.forEach(element => {
+                if(element.titulo === titulo) {
+                    element.quantidade++
+                }
+
+        })
+        setSobremesasSelecionadas(() => ([...sobremesasSelecionadas]));
+        console.log(sobremesasSelecionadas)
+
         }
 
     }
@@ -34,15 +95,19 @@ export default function Menus (props) {
         <h2>{props.etapa}</h2>
         <div className="menus">
             {props.tipo.map((opcao, index) => (
-                <div onClick={() => (pedidoSelecionado(categoria, opcao.titulo, opcao.preco))} className="">
                     <Opcao 
                     key = {index}
+                    categoria = {categoria}
                     titulo = {opcao.titulo}
                     imagem = {opcao.imagem}
                     descricao = {opcao.descricao}
                     preco = {Number(opcao.preco).toFixed(2)}
-                    />
-                </div>    
+                    pedidoSelecionado = {() => pedidoSelecionado(categoria, opcao.titulo, opcao.preco)}
+                    pratosSelecionados = {pratosSelecionados}
+                    aumentarQuantidade = {() => aumentarQuantidade(categoria, opcao.titulo)}
+                    bebidasSelecionadas = {bebidasSelecionadas}
+                    sobremesasSelecionadas = {sobremesasSelecionadas}
+                    /> 
             ))}
         </div>
         </>

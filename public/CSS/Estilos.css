@@ -73,7 +73,9 @@ p {
     position: relative;
     
 }
-
+.add-quantidade {
+    display: flex;
+}
 .imagem-cardapio {
     height: 87px;
     width: 144px;
