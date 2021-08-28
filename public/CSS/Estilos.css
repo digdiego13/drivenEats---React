@@ -73,6 +73,9 @@ p {
     position: relative;
     
 }
+.green {
+    border: solid 3px green;
+}
 .add-quantidade {
     display: flex;
 }

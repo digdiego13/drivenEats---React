@@ -1,7 +1,9 @@
 import React from 'react'
 import Opcao from "./Opcao"
 
-
+let pratoEscolhido = false;
+let bebidaEscolhida = false;
+let sobremesaEscolhida = false;
 export default function Menus (props) {
 
     const categoria = props.categoria;
@@ -12,6 +14,8 @@ export default function Menus (props) {
 
     const [sobremesasSelecionadas, setSobremesasSelecionadas] = React.useState([])
 
+   
+
 
     function pedidoSelecionado (categoria, titulo, preco) {
 
@@ -21,9 +25,11 @@ export default function Menus (props) {
                 preco,
                 quantidade: 1
             }
+
             
             setPratosSelecionados(() => ([...pratosSelecionados, novoPrato]));
             console.log(pratosSelecionados)
+            pratoEscolhido = true;
 
         }
         if(categoria === "bebidas") {
@@ -35,6 +41,7 @@ export default function Menus (props) {
             
             setBebidasSelecionadas(() => ([...bebidasSelecionadas, novaBebida]));
             console.log(bebidasSelecionadas)
+            bebidaEscolhida = true
 
             
         }
@@ -44,10 +51,15 @@ export default function Menus (props) {
                 preco,
                 quantidade: 1
             }
-            
+            sobremesaEscolhida = true
             setSobremesasSelecionadas(() => ([...sobremesasSelecionadas, novaSobremesa]));
             console.log(sobremesasSelecionadas)
+            
 
+        }
+        console.log(pratoEscolhido)
+        if(pratoEscolhido  && bebidaEscolhida && sobremesaEscolhida) {
+            console.log("OKKKKKKKKKKKKKKKKKKKk")
         }
 
     }
@@ -87,7 +99,46 @@ export default function Menus (props) {
         console.log(sobremesasSelecionadas)
 
         }
+        console.log("AAAAA")
+        
+    }
 
+    function diminuirQuantidade (categoria, titulo) {
+
+        if(categoria === "pratos") {
+            pratosSelecionados.forEach(element => {
+                if(element.titulo === titulo) {
+                    element.quantidade-- 
+                }
+
+        })
+        setPratosSelecionados(() => [...pratosSelecionados])
+        console.log(pratosSelecionados)
+        }
+
+        if(categoria === "bebidas") {
+            bebidasSelecionadas.forEach(element => {
+                if(element.titulo === titulo) {
+                    element.quantidade--
+                }
+
+        })
+        setBebidasSelecionadas(() => ([...bebidasSelecionadas]));
+        console.log(bebidasSelecionadas)
+        }
+
+        if(categoria === "sobremesas") {
+            sobremesasSelecionadas.forEach(element => {
+                if(element.titulo === titulo) {
+                    element.quantidade--
+                }
+
+        })
+        setSobremesasSelecionadas(() => ([...sobremesasSelecionadas]));
+        console.log(sobremesasSelecionadas)
+
+        }
+        
     }
 
     return (
@@ -105,6 +156,7 @@ export default function Menus (props) {
                     pedidoSelecionado = {() => pedidoSelecionado(categoria, opcao.titulo, opcao.preco)}
                     pratosSelecionados = {pratosSelecionados}
                     aumentarQuantidade = {() => aumentarQuantidade(categoria, opcao.titulo)}
+                    diminuirQuantidade = {() => diminuirQuantidade(categoria, opcao.titulo)}
                     bebidasSelecionadas = {bebidasSelecionadas}
                     sobremesasSelecionadas = {sobremesasSelecionadas}
                     /> 

@@ -1,6 +1,6 @@
 
 
-export default function Opcao ({key, categoria, titulo, imagem, descricao, preco, pratosSelecionados, aumentarQuantidade, pedidoSelecionado, bebidasSelecionadas, sobremesasSelecionadas}) {
+export default function Opcao ({key, categoria, titulo, imagem, descricao, preco, pratosSelecionados, aumentarQuantidade,diminuirQuantidade, pedidoSelecionado, bebidasSelecionadas, sobremesasSelecionadas}) {
 
     let quantidade = 0;
     if(categoria === "pratos"){
@@ -30,7 +30,7 @@ export default function Opcao ({key, categoria, titulo, imagem, descricao, preco
     if(quantidade>0) { 
 
          return(
-         <div className="card">
+         <div className="card green" >
              <img className="imagem-cardapio" src={imagem} />
              <p className="titulo-card">{titulo}</p>
              <p className="descricao"> {descricao}</p>
@@ -39,7 +39,7 @@ export default function Opcao ({key, categoria, titulo, imagem, descricao, preco
                  <div className = "add-quantidade">
                      <button onClick={() => aumentarQuantidade(categoria, titulo)}>+</button>
                      <p>{quantidade}</p>
-                     <button>-</button>
+                     <button onClick={() => diminuirQuantidade(categoria, titulo)}>-</button>
                  </div>
              </div>
          </div>
@@ -57,7 +57,7 @@ export default function Opcao ({key, categoria, titulo, imagem, descricao, preco
             <p className="descricao"> {descricao}</p>
             <div className="card-bottom">
                 <p className="preco-card">R$ <span>{preco}</span></p>
-                <ion-icon name="checkmark-circle" className="simbolo-check"></ion-icon>
+                
             </div>
         </div>
 
