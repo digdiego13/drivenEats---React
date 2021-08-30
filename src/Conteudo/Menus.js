@@ -4,6 +4,7 @@ import Opcao from "./Opcao"
 let pratoEscolhido = false;
 let bebidaEscolhida = false;
 let sobremesaEscolhida = false;
+
 export default function Menus (props) {
 
     const categoria = props.categoria;
@@ -14,7 +15,8 @@ export default function Menus (props) {
 
     const [sobremesasSelecionadas, setSobremesasSelecionadas] = React.useState([])
 
-   
+   let linkWpp = ""
+   let total = 0
 
 
     function pedidoSelecionado (categoria, titulo, preco) {
@@ -30,6 +32,7 @@ export default function Menus (props) {
             setPratosSelecionados(() => ([...pratosSelecionados, novoPrato]));
             console.log(pratosSelecionados)
             pratoEscolhido = true;
+            
 
         }
         if(categoria === "bebidas") {
@@ -60,6 +63,8 @@ export default function Menus (props) {
         console.log(pratoEscolhido)
         if(pratoEscolhido  && bebidaEscolhida && sobremesaEscolhida) {
             console.log("OKKKKKKKKKKKKKKKKKKKk")
+
+            
         }
 
     }
@@ -141,6 +146,63 @@ export default function Menus (props) {
         
     }
 
+    function calculaTotal () {
+        
+        if(categoria === "pratos") {
+        
+        pratosSelecionados.forEach((element) => {
+            total += element.preco
+        })
+        }
+
+        if(categoria === "bebidas") {
+        bebidasSelecionadas.forEach((element) => {
+            total += element.preco
+        })
+        }
+        if(categoria === "sobremesas") {
+        sobremesasSelecionadas.forEach((element) => {
+            total += element.preco
+        })
+        }
+        return total;
+    }
+
+    function mensagemWpp () {
+
+        let msgPrato = ''
+        pratosSelecionados.forEach((element) => {
+            msgPrato += `
+            ${element.titulo}, quantidade: ${element.quantidade}x 
+            `
+        })
+
+        let msgBebida = ''
+        bebidasSelecionadas.forEach((element) => {
+            msgBebida += `
+            ${element.titulo}, quantidade: ${element.quantidade}x 
+            `
+        })
+
+        let msgSobremesa = ''
+        sobremesasSelecionadas.forEach((element) => {
+            msgSobremesa += `
+            ${element.titulo}, quantidade: ${element.quantidade}x 
+            `
+        })
+
+        let mensagem = `a Olá, gostaria de fazer o pedido:
+        - Prato: ${msgPrato}
+        - Bebida: ${msgBebida}
+        - Sobremesa: ${msgSobremesa}
+        Total: R$ ${calculaTotal().toFixed(2)}`
+        console.log(mensagem);
+        props.paraOPai(mensagem)
+        let msgWpp = encodeURIComponent(mensagem);
+        linkWpp = "https://wa.me/5521979778806?text=" + msgWpp;
+    }
+    mensagemWpp()
+    console.log(linkWpp)
     return (
         <>
         <h2>{props.etapa}</h2>

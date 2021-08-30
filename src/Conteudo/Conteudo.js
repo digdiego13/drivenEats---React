@@ -1,4 +1,5 @@
 import Menus from "./Menus"
+import React from "react"
 
 const categorias = ["pratos", "bebidas", "sobremesas"]
 
@@ -89,12 +90,20 @@ const sobremesas = [
 
 export default function Conteudo () {
 
+	const [pratosData, setPratosData] = React.useState([]);
+	const paraOPai = (infoFilho) => {
+		setPratosData(infoFilho);
+		
+	}
+	console.log(pratosData)
+
+
     return (
         <div className="conteudo">
 				
-				<Menus categoria={categorias[0]} tipo={pratos} etapa="Escolha o pratinho"/>
-				<Menus categoria={categorias[1]} tipo={bebidas} etapa="Escolha a bebidinha"/>
-				<Menus categoria={categorias[2]} tipo={sobremesas} etapa="Lanca a Sobremesa"/>
+				<Menus categoria={categorias[0]} tipo={pratos} etapa="Escolha o pratinho" paraOPai={paraOPai}/>
+				<Menus categoria={categorias[1]} tipo={bebidas} etapa="Escolha a bebidinha" paraOPai={paraOPai}/>
+				<Menus categoria={categorias[2]} tipo={sobremesas} etapa="Lanca a Sobremesa" paraOPai={paraOPai}/>
 		</div>
     )
 }
