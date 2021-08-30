@@ -1,32 +1,15 @@
 
 
-export default function Opcao ({key, categoria, titulo, imagem, descricao, preco, pratosSelecionados, aumentarQuantidade,diminuirQuantidade, pedidoSelecionado, bebidasSelecionadas, sobremesasSelecionadas}) {
+export default function Opcao ({key, categoria, titulo, imagem, descricao, preco, pratosSelecionados, aumentarQuantidade,diminuirQuantidade, pedidoSelecionado, itens}) {
 
     let quantidade = 0;
-    if(categoria === "pratos"){
-        pratosSelecionados.forEach(element => {
+    
+        itens.forEach(element => {
             if(element.titulo === titulo) {
                 quantidade = element.quantidade
             }
             
         });
-    }
-    if(categoria === "bebidas"){
-        bebidasSelecionadas.forEach(element => {
-            if(element.titulo === titulo) {
-                quantidade = element.quantidade
-            }
-            
-        });
-    }
-    if(categoria === "sobremesas"){
-        sobremesasSelecionadas.forEach(element => {
-            if(element.titulo === titulo) {
-                quantidade = element.quantidade
-            }
-            
-        });
-    }
     if(quantidade>0) { 
 
          return(

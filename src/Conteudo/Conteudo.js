@@ -1,6 +1,6 @@
 import Menus from "./Menus"
 import React from "react"
-
+import Bottom from "../Bottom"
 const categorias = ["pratos", "bebidas", "sobremesas"]
 
 const pratos = [
@@ -87,23 +87,59 @@ const sobremesas = [
 	}
 
 ]
-
-export default function Conteudo () {
-
-	const [pratosData, setPratosData] = React.useState([]);
-	const paraOPai = (infoFilho) => {
-		setPratosData(infoFilho);
-		
+let mensagem = ''
+let mensagemSobremesa = ''
+let mensagemPrato = ''
+let mensagemBebida = ''
+let totalPrato = 0
+let totalBebida = 0
+let totalSobremesa = 0
+let totalMsg = 0
+export default function Conteudo ({mensagemProPai}) {
+	let botaoHabilitado = false
+	const [pratosData, setPratosData] = React.useState('');
+	const paraOPai = (infoFilho, categoria, total) => {
+		if(categoria === "pratos") {
+			setPratosData(infoFilho);
+			mensagemPrato =`Prato
+			${infoFilho}`
+			totalPrato = total
+		}
+		if(categoria === "sobremesas") {
+			setPratosData(infoFilho);
+			mensagemSobremesa =`sobremesa
+			${infoFilho}`
+			totalSobremesa = total
+		}
+		if(categoria === "bebidas") {
+			setPratosData(infoFilho);
+			mensagemBebida =`bebida
+			${infoFilho}`
+			totalBebida = total
+		}
 	}
-	console.log(pratosData)
+	totalMsg = totalPrato + totalBebida + totalSobremesa
+	mensagem = `${mensagemPrato + mensagemBebida + mensagemSobremesa} 
+		TOTAL: ${totalMsg.toFixed(2)} reais`
+	console.log(mensagem)
+
+	if(totalPrato!==0 && totalBebida!==0 && totalSobremesa!==0) {
+		botaoHabilitado = true
+		mensagemProPai(mensagem, botaoHabilitado)
+		console.log("Botao Habilitado - Conteudo")
+
+	}
 
 
     return (
+		<>
         <div className="conteudo">
 				
 				<Menus categoria={categorias[0]} tipo={pratos} etapa="Escolha o pratinho" paraOPai={paraOPai}/>
 				<Menus categoria={categorias[1]} tipo={bebidas} etapa="Escolha a bebidinha" paraOPai={paraOPai}/>
 				<Menus categoria={categorias[2]} tipo={sobremesas} etapa="Lanca a Sobremesa" paraOPai={paraOPai}/>
 		</div>
+		<Bottom mensagem={mensagem} botaoHabilitado={botaoHabilitado}/>
+		</>
     )
 }
